@@ -40,6 +40,9 @@ class RegistroController extends Controller
             'edad.max' => 'La edad no puede ser mayor a 120.',
         ]);
 
+        // Capturar la IP del usuario
+        $validated['ip_address'] = $request->ip();
+
         // Crear el registro
         $registro = Registro::create($validated);
 

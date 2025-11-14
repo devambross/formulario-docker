@@ -15,6 +15,7 @@ class Registro extends Model
         'correo',
         'telefono',
         'edad',
+        'ip_address',
     ];
 
     protected $casts = [

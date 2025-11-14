@@ -122,7 +122,7 @@
 
         <div class="footer">
             <p>Este es un correo automático, por favor no responda a este mensaje.</p>
-            <p>&copy; {{ date('Y') }} - Todos los derechos reservados</p>
+            <p>Rinconada Country Club · Copyright &copy; 1956 - {{ date('Y') }} </p>
         </div>
     </div>
 </body>
