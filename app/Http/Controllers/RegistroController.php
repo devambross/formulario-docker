@@ -19,25 +19,25 @@ class RegistroController extends Controller
     {
         // Validar los datos
         $validated = $request->validate([
+            'acepta_terminos' => 'required|accepted',
             'codigo_socio' => 'required|string|max:255|unique:registros,codigo_socio',
             'nombres' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
             'correo' => 'required|email|max:255|unique:registros,correo',
             'telefono' => 'required|string|max:20',
-            'edad' => 'required|integer|min:1|max:120',
+            'fecha_preferencia' => 'required|string',
+            'tipo_bungalow' => 'required|in:6_personas,9_personas',
         ], [
+            'acepta_terminos.required' => 'Debe aceptar los términos y condiciones.',
+            'acepta_terminos.accepted' => 'Debe aceptar los términos y condiciones.',
             'codigo_socio.unique' => 'Este código de socio ya ha sido registrado anteriormente.',
             'correo.unique' => 'Este correo electrónico ya ha sido registrado anteriormente.',
             'codigo_socio.required' => 'El código de socio es obligatorio.',
-            'nombres.required' => 'Los nombres son obligatorios.',
-            'apellidos.required' => 'Los apellidos son obligatorios.',
+            'nombres.required' => 'Los nombres y apellidos son obligatorios.',
             'correo.required' => 'El correo electrónico es obligatorio.',
             'correo.email' => 'Debe ingresar un correo electrónico válido.',
-            'telefono.required' => 'El teléfono es obligatorio.',
-            'edad.required' => 'La edad es obligatoria.',
-            'edad.integer' => 'La edad debe ser un número.',
-            'edad.min' => 'La edad debe ser al menos 1.',
-            'edad.max' => 'La edad no puede ser mayor a 120.',
+            'telefono.required' => 'El número de celular es obligatorio.',
+            'fecha_preferencia.required' => 'Debe seleccionar una opción de fecha.',
+            'tipo_bungalow.required' => 'Debe seleccionar un tipo de bungalow.',
         ]);
 
         // Capturar la IP del usuario

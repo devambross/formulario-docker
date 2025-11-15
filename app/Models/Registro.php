@@ -10,11 +10,12 @@ class Registro extends Model
 
     protected $fillable = [
         'codigo_socio',
+        'acepta_terminos',
         'nombres',
-        'apellidos',
         'correo',
         'telefono',
-        'edad',
+        'fecha_preferencia',
+        'tipo_bungalow',
         'ip_address',
     ];
 

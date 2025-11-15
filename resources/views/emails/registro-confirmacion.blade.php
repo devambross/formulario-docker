@@ -67,32 +67,28 @@
 </head>
 <body>
     <div class="header">
-        <h1>¡Registro Exitoso!</h1>
+        <h1>✅ Inscripción Confirmada</h1>
+        <p style="margin: 5px 0 0 0;">Sorteo de Bungalows DICIEMBRE 2025 – ENERO 2026</p>
     </div>
 
     <div class="content">
-        <div class="success-icon"></div>
+        <div class="success-icon">🏖️</div>
 
-        <p>Estimado/a <strong>{{ $registro->nombres }} {{ $registro->apellidos }}</strong>,</p>
+        <p>Estimado/a <strong>{{ $registro->nombres }}</strong>,</p>
 
-        <p>Le confirmamos que su registro ha sido completado exitosamente. A continuación encontrará los detalles de su registro:</p>
+        <p>Su inscripción para el sorteo de bungalows ha sido registrada exitosamente. A continuación, los detalles de su inscripción:</p>
 
         <div class="info-box">
-            <h3 style="margin-top: 0; color: #4CAF50;">Datos Registrados</h3>
+            <h3 style="margin-top: 0; color: #4CAF50;">Datos de Inscripción</h3>
 
             <div class="info-row">
-                <span class="label">Código de Socio:</span>
-                <span class="value">{{ $registro->codigo_socio }}</span>
+                <span class="label">Código de Asociado:</span>
+                <span class="value"><strong>{{ $registro->codigo_socio }}</strong></span>
             </div>
 
             <div class="info-row">
-                <span class="label">Nombres:</span>
+                <span class="label">Nombre Completo:</span>
                 <span class="value">{{ $registro->nombres }}</span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Apellidos:</span>
-                <span class="value">{{ $registro->apellidos }}</span>
             </div>
 
             <div class="info-row">
@@ -101,13 +97,18 @@
             </div>
 
             <div class="info-row">
-                <span class="label">Teléfono:</span>
+                <span class="label">Celular:</span>
                 <span class="value">{{ $registro->telefono }}</span>
             </div>
 
             <div class="info-row">
-                <span class="label">Edad:</span>
-                <span class="value">{{ $registro->edad }} años</span>
+                <span class="label">Fecha Seleccionada:</span>
+                <span class="value"><strong>{{ $registro->fecha_preferencia }}</strong></span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Tipo de Bungalow:</span>
+                <span class="value">{{ $registro->tipo_bungalow == '6_personas' ? 'Bungalow para seis (6) personas' : 'Bungalow para nueve (9) personas' }}</span>
             </div>
 
             <div class="info-row">
@@ -116,12 +117,23 @@
             </div>
         </div>
 
-        <p><strong>¡Gracias por registrarse!</strong></p>
+        <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
+            <p style="margin: 0 0 10px 0; font-weight: bold; color: #856404;">⚠️ IMPORTANTE:</p>
+            <ul style="margin: 0; padding-left: 20px; color: #856404; font-size: 14px;">
+                <li>Si resulta favorecido, deberá realizar el pago en un máximo de 4 días posteriores al sorteo</li>
+                <li>Deberá enviar el voucher al área de alquileres dentro de los días establecidos</li>
+                <li>Los datos no pueden ser modificados después del envío</li>
+                <li>Solo se considerará válida su primera inscripción</li>
+            </ul>
+        </div>
 
-        <p>Si tiene alguna pregunta o necesita asistencia, no dude en contactarnos.</p>
+        <p><strong>Le informaremos los resultados del sorteo oportunamente.</strong></p>
+
+        <p>Saludos cordiales,<br><strong>Club Rinconada</strong></p>
 
         <div class="footer">
             <p>Este es un correo automático, por favor no responda a este mensaje.</p>
+            <p>Para consultas, comuníquese con el área de alquileres.</p>
             <p>Rinconada Country Club · Copyright &copy; 1956 - {{ date('Y') }} </p>
         </div>
     </div>

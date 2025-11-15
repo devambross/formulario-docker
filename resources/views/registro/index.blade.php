@@ -181,12 +181,97 @@
             font-size: 50px;
             margin-bottom: 15px;
         }
+
+        .info-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #856404;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .info-box li {
+            margin-bottom: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        select.error {
+            border-color: #e74c3c;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-group a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1> Formulario de Registro</h1>
-        <p class="subtitle">Complete todos los campos para registrarse</p>
+        <h1>📋 Solicitud de Inscripción para Sorteo de Bungalows</h1>
+        <p class="subtitle">DICIEMBRE 2025 – ENERO 2026</p>
+
+        <div class="info-box">
+            <strong>REQUISITOS DE INSCRIPCIÓN:</strong>
+            <ul>
+                <li>Sólo los asociados Titulares HÁBILES (sin deudas de cuotas de mantenimiento)</li>
+                <li>Debe registrarse en una sola fecha. Si se inscribe más de una vez, sólo se considerará la primera</li>
+                <li>Es responsabilidad del asociado escribir bien sus datos. No habrá derecho a corregir después de enviar</li>
+            </ul>
+        </div>
 
         @if(session('success'))
             <div class="alert alert-success">
@@ -210,7 +295,27 @@
             @csrf
 
             <div class="form-group">
-                <label for="codigo_socio">Código de Socio <span class="required">*</span></label>
+                <div class="checkbox-group">
+                    <input
+                        type="checkbox"
+                        id="acepta_terminos"
+                        name="acepta_terminos"
+                        value="1"
+                        {{ old('acepta_terminos') ? 'checked' : '' }}
+                        class="@error('acepta_terminos') error @enderror"
+                        required
+                    >
+                    <label for="acepta_terminos">
+                        Está de acuerdo con los términos y condiciones - <a href="https://urli.info/1eCjp" target="_blank">Reglamento de Bungalows</a>. Después de enviar el formulario no habrá derecho a corregir algún dato. <span class="required">*</span>
+                    </label>
+                </div>
+                @error('acepta_terminos')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="codigo_socio">Código de Asociado (Solo Titular o Cónyuge) <span class="required">*</span></label>
                 <input
                     type="text"
                     id="codigo_socio"
@@ -225,38 +330,36 @@
                 @enderror
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nombres">Nombres <span class="required">*</span></label>
-                    <input
-                        type="text"
-                        id="nombres"
-                        name="nombres"
-                        value="{{ old('nombres') }}"
-                        class="@error('nombres') error @enderror"
-                        required
-                        placeholder="Ej: Juan Carlos"
-                    >
-                    @error('nombres')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
-                </div>
+            <div class="form-group">
+                <label for="nombres">Nombres y Apellidos (Datos del Asociado Titular) <span class="required">*</span></label>
+                <input
+                    type="text"
+                    id="nombres"
+                    name="nombres"
+                    value="{{ old('nombres') }}"
+                    class="@error('nombres') error @enderror"
+                    required
+                    placeholder="Ej: Juan Carlos Pérez García"
+                >
+                @error('nombres')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
+            </div>
 
-                <div class="form-group">
-                    <label for="apellidos">Apellidos <span class="required">*</span></label>
-                    <input
-                        type="text"
-                        id="apellidos"
-                        name="apellidos"
-                        value="{{ old('apellidos') }}"
-                        class="@error('apellidos') error @enderror"
-                        required
-                        placeholder="Ej: Pérez García"
-                    >
-                    @error('apellidos')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
-                </div>
+            <div class="form-group">
+                <label for="telefono">Número de Celular <span class="required">*</span></label>
+                <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    value="{{ old('telefono') }}"
+                    class="@error('telefono') error @enderror"
+                    required
+                    placeholder="Ej: 987654321"
+                >
+                @error('telefono')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -275,44 +378,48 @@
                 @enderror
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="telefono">Teléfono <span class="required">*</span></label>
-                    <input
-                        type="tel"
-                        id="telefono"
-                        name="telefono"
-                        value="{{ old('telefono') }}"
-                        class="@error('telefono') error @enderror"
-                        required
-                        placeholder="Ej: 987654321"
-                    >
-                    @error('telefono')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
-                </div>
+            <div class="form-group">
+                <label for="fecha_preferencia">Elija su opción de fecha <span class="required">*</span></label>
+                <select
+                    id="fecha_preferencia"
+                    name="fecha_preferencia"
+                    class="@error('fecha_preferencia') error @enderror"
+                    required
+                >
+                    <option value="">Seleccione una fecha...</option>
+                    <option value="Viernes 12 al lunes 15 Dic" {{ old('fecha_preferencia') == 'Viernes 12 al lunes 15 Dic' ? 'selected' : '' }}>Viernes 12 al lunes 15 Dic</option>
+                    <option value="Viernes 19 al lunes 22 Dic" {{ old('fecha_preferencia') == 'Viernes 19 al lunes 22 Dic' ? 'selected' : '' }}>Viernes 19 al lunes 22 Dic</option>
+                    <option value="Viernes 26 al lunes 29 Dic" {{ old('fecha_preferencia') == 'Viernes 26 al lunes 29 Dic' ? 'selected' : '' }}>Viernes 26 al lunes 29 Dic</option>
+                    <option value="Martes 30 al domingo 04 ene" {{ old('fecha_preferencia') == 'Martes 30 al domingo 04 ene' ? 'selected' : '' }}>Martes 30 al domingo 04 ene</option>
+                    <option value="Viernes 09 al lunes 12 ene" {{ old('fecha_preferencia') == 'Viernes 09 al lunes 12 ene' ? 'selected' : '' }}>Viernes 09 al lunes 12 ene</option>
+                    <option value="Viernes 16 al lunes 19 ene" {{ old('fecha_preferencia') == 'Viernes 16 al lunes 19 ene' ? 'selected' : '' }}>Viernes 16 al lunes 19 ene</option>
+                    <option value="Viernes 23 al lunes 26 ene" {{ old('fecha_preferencia') == 'Viernes 23 al lunes 26 ene' ? 'selected' : '' }}>Viernes 23 al lunes 26 ene</option>
+                    <option value="Viernes 30 ene al lunes 02 feb" {{ old('fecha_preferencia') == 'Viernes 30 ene al lunes 02 feb' ? 'selected' : '' }}>Viernes 30 ene al lunes 02 feb</option>
+                </select>
+                @error('fecha_preferencia')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
+            </div>
 
-                <div class="form-group">
-                    <label for="edad">Edad <span class="required">*</span></label>
-                    <input
-                        type="number"
-                        id="edad"
-                        name="edad"
-                        value="{{ old('edad') }}"
-                        class="@error('edad') error @enderror"
-                        required
-                        min="1"
-                        max="120"
-                        placeholder="Ej: 25"
-                    >
-                    @error('edad')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
-                </div>
+            <div class="form-group">
+                <label for="tipo_bungalow">¿Qué opción de bungalow prefiere? <span class="required">*</span></label>
+                <select
+                    id="tipo_bungalow"
+                    name="tipo_bungalow"
+                    class="@error('tipo_bungalow') error @enderror"
+                    required
+                >
+                    <option value="">Seleccione un tipo...</option>
+                    <option value="6_personas" {{ old('tipo_bungalow') == '6_personas' ? 'selected' : '' }}>Bungalow para seis (6) personas</option>
+                    <option value="9_personas" {{ old('tipo_bungalow') == '9_personas' ? 'selected' : '' }}>Bungalow para nueve (9) personas</option>
+                </select>
+                @error('tipo_bungalow')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
             </div>
 
             <button type="submit" class="btn-submit">
-                Registrarse
+                Enviar Inscripción
             </button>
         </form>
     </div>
